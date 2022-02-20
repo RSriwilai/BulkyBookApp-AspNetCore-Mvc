@@ -1,6 +1,7 @@
 ﻿using BulkyBook.DataAccess.DatabaseModel;
 using BulkyBook.DataAccess.DBContext;
 using BulkyBook.DataAccess.Interfaces;
+using BulkyBook.Models.Category;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,14 @@ namespace BulkyBook.DataAccess.Repositories
             _db = db;
         }
 
-        public async Task<Category> CreateCategory(Category model)
+        public async Task<CategoryDto> CreateCategory(CategoryDto model)
         {
-            await _db.Categories.AddAsync(model);
+            var category = new Category
+            {
+                Name = model.Name,
+                DisplayOrder = model.DisplayOrder
+            };
+            await _db.Categories.AddAsync(category);
             await _db.SaveChangesAsync();
             
             return model;

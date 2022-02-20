@@ -1,4 +1,5 @@
 ﻿using BulkyBook.DataAccess.DatabaseModel;
+using BulkyBook.Models.Category;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BulkyBook.DataAccess.Interfaces
 {
     public interface ICategoryRepository
     {
-        Task<Category> CreateCategory(Category model);
+        Task<CategoryDto> CreateCategory(CategoryDto model);
         Task<List<Category>> GetAll();
         Task<Category> GetById(int? categoryId);
         Task Delete(int categoryId);

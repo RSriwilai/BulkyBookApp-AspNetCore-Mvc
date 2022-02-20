@@ -1,5 +1,6 @@
 ﻿using BulkyBook.DataAccess.DatabaseModel;
 using BulkyBook.DataAccess.Interfaces;
+using BulkyBook.Models.Category;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyBookWeb.Controllers
@@ -29,7 +30,7 @@ namespace BulkyBookWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCategory(Category category)
+        public async Task<IActionResult> CreateCategory(CategoryDto category)
         {
             if(category.Name == category.DisplayOrder.ToString())
             {
