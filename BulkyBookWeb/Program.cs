@@ -13,7 +13,7 @@ builder.Services.AddDbContext<BulkyBookDbContext>(options =>
 });
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-
+builder.Services.AddScoped<ICoverTypeRepository, CoverTypeRepository>();
 
 builder.Services.AddControllersWithViews();
 
