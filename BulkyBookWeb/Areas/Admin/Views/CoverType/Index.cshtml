@@ -1,0 +1,53 @@
+﻿@using BulkyBook.DataAccess.DatabaseModel
+@model List<CoverType>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2>Cover Type List</h2>
+        </div>
+        <div class="col-6">
+            <a asp-controller="CoverType" asp-action="CreateCoverType" class="btn btn-outline-secondary bi bi-plus-square float-end"> Create Cover Type </a>
+        </div>
+    </div>
+    <br />
+    <table class="table table-bordered table-striped" style="width:100%;">
+        <thead>
+            <tr>
+                <th>
+                    Cover Type Name
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td width="80%">
+                        @i.Name
+                    </td>
+                    <td style="text-align:center">
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-primary" style="margin-right:10px;" asp-controller="CoverType" asp-action="EditCoverType" asp-route-coverTypeId="@i.CoverTypeId">
+                                <i class="bi bi-pencil-square"></i>
+                                Edit
+                            </a>
+                            <a class="btn btn-danger" asp-controller="CoverType" asp-action="Delete" asp-route-coverTypeId="@i.CoverTypeId">
+                                <i class="bi bi-x-square"></i>
+                                Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

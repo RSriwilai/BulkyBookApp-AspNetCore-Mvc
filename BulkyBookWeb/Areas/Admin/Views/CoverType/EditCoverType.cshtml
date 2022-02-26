@@ -1,0 +1,25 @@
+﻿@model BulkyBook.DataAccess.DatabaseModel.CoverType
+@{
+    ViewData["Title"] = "Edit";
+}
+<form method="post" asp-action="EditCoverType">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2>Edit Cover Type</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success" style="width:150px">Update</button>
+        <a asp-controller="CoverType" asp-action="Index" class="btn btn-outline-secondary" style="width: 150px"> <i class="bi bi-box-arrow-in-left"></i> Back to List</a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
