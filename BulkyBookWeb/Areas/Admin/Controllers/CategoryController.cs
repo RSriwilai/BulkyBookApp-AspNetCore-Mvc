@@ -1,5 +1,5 @@
 ﻿using BulkyBook.DataAccess.Interfaces;
-using BulkyBook.Models.Category;
+using BulkyBook.Models.Categories;
 using BulkyBook.Models.DatabaseModel;
 using Microsoft.AspNetCore.Mvc;
 

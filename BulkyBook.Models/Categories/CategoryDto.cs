@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BulkyBook.Models.Category
+namespace BulkyBook.Models.Categories
 {
     public class CategoryDto
     {

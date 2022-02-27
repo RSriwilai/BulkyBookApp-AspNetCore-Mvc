@@ -47,8 +47,6 @@ namespace BulkyBookWeb.Controllers
             if (id == null || id == 0)
             {
                 //create product
-                //ViewBag.CategoryList = CategoryList;
-                //ViewData["CoverTypeList"] = CoverTypeList;
                 return View(productViewModel);
             }
             else
@@ -61,16 +59,16 @@ namespace BulkyBookWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(CoverType coverType)
+        public IActionResult Upsert(ProductViewModel model, IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                _coverTypeRepository.Update(coverType);
+                //_coverTypeRepository.Update(model);
                 TempData["success"] = "Cover Type updated successfully!";
                 return RedirectToAction("Index");
             }
 
-            return View(coverType);
+            return View(model);
         }
 
         [HttpGet]

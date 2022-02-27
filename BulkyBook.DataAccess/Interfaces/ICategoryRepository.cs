@@ -1,4 +1,4 @@
-﻿using BulkyBook.Models.Category;
+﻿using BulkyBook.Models.Categories;
 using BulkyBook.Models.DatabaseModel;
 
 namespace BulkyBook.DataAccess.Interfaces

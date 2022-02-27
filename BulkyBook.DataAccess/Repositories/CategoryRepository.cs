@@ -1,6 +1,6 @@
 ﻿using BulkyBook.DataAccess.DBContext;
 using BulkyBook.DataAccess.Interfaces;
-using BulkyBook.Models.Category;
+using BulkyBook.Models.Categories;
 using BulkyBook.Models.DatabaseModel;
 using Microsoft.EntityFrameworkCore;
 using System;
