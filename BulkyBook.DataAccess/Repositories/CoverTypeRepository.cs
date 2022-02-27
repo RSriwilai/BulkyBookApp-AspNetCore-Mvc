@@ -1,7 +1,7 @@
-﻿using BulkyBook.DataAccess.DatabaseModel;
-using BulkyBook.DataAccess.DBContext;
+﻿using BulkyBook.DataAccess.DBContext;
 using BulkyBook.DataAccess.Interfaces;
 using BulkyBook.Models.CoverTypes;
+using BulkyBook.Models.DatabaseModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,9 +40,9 @@ namespace BulkyBook.DataAccess.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<List<CoverType>> GetAll()
+        public IEnumerable<CoverType> GetAll()
         {
-            var coverTypes = await _db.CoverTypes.ToListAsync();
+            var coverTypes = _db.CoverTypes.ToList();
 
             return coverTypes;
         }

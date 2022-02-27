@@ -1,6 +1,6 @@
-﻿using BulkyBook.DataAccess.DatabaseModel;
-using BulkyBook.DataAccess.Interfaces;
+﻿using BulkyBook.DataAccess.Interfaces;
 using BulkyBook.Models.Category;
+using BulkyBook.Models.DatabaseModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyBookWeb.Controllers
@@ -15,9 +15,9 @@ namespace BulkyBookWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var objCategory = await _categoryRepository.GetAll();
+            var objCategory = _categoryRepository.GetAll();
 
             return View(objCategory);
         }

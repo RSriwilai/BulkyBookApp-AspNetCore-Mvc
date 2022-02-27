@@ -1,18 +1,22 @@
-﻿using BulkyBook.DataAccess.Interfaces;
-using BulkyBook.Models.CoverTypes;
-using BulkyBook.Models.DatabaseModel;
+﻿using BulkyBook.Models.DatabaseModel;
+using BulkyBook.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using BulkyBook.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BulkyBookWeb.Controllers
 {
-    public class CoverTypeController : Controller
+    public class ProductController : Controller
     {
+        private readonly ICategoryRepository _categoryRepository;
         private readonly ICoverTypeRepository _coverTypeRepository;
 
-        public CoverTypeController(ICoverTypeRepository coverTypeRepository)
+        public ProductController(ICategoryRepository categoryRepository, ICoverTypeRepository coverTypeRepository)
         {
+            _categoryRepository = categoryRepository;
             _coverTypeRepository = coverTypeRepository;
         }
+
 
         [HttpGet]
         public IActionResult Index()
@@ -23,40 +27,41 @@ namespace BulkyBookWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateCoverType()
+        public IActionResult Upsert(int? id)
         {
-            return View();
+            ProductViewModel productViewModel = new ProductViewModel()
+            {
+                Product = new Product(),
+                CategoryList = _categoryRepository.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }),
+                CoverTypeList = _coverTypeRepository.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.CoverTypeId.ToString()
+                }),
+            };
+
+            if (id == null || id == 0)
+            {
+                //create product
+                //ViewBag.CategoryList = CategoryList;
+                //ViewData["CoverTypeList"] = CoverTypeList;
+                return View(productViewModel);
+            }
+            else
+            {
+                //update product
+            }
+
+            return View(productViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCoverType(CoverTypeDto coverType)
-        {
-            if (ModelState.IsValid)
-            {
-                await _coverTypeRepository.CreateCoverType(coverType);
-                TempData["success"] = "Cover Type created successfully!";
-                return RedirectToAction("Index");
-            }
-
-            return View(coverType);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditCoverType(int? coverTypeId)
-        {
-            if(coverTypeId == null || coverTypeId == 0)
-            {
-                return NotFound();
-            }
-            var coverType = await _coverTypeRepository.GetById(coverTypeId);
-
-            return View(coverType);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult EditCoverType(CoverType coverType)
+        public IActionResult Upsert(CoverType coverType)
         {
             if (ModelState.IsValid)
             {

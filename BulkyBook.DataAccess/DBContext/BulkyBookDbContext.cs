@@ -1,4 +1,4 @@
-﻿using BulkyBook.DataAccess.DatabaseModel;
+﻿using BulkyBook.Models.DatabaseModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

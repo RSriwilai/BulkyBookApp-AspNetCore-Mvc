@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BulkyBook.DataAccess.DatabaseModel
+namespace BulkyBook.Models.DatabaseModel
 {
     public class Product
     {

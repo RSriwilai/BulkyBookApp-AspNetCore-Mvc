@@ -1,7 +1,7 @@
-﻿using BulkyBook.DataAccess.DatabaseModel;
-using BulkyBook.DataAccess.DBContext;
+﻿using BulkyBook.DataAccess.DBContext;
 using BulkyBook.DataAccess.Interfaces;
 using BulkyBook.Models.Category;
+using BulkyBook.Models.DatabaseModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -41,9 +41,9 @@ namespace BulkyBook.DataAccess.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<List<Category>> GetAll()
+        public IEnumerable<Category> GetAll()
         {
-            var categories = await _db.Categories.ToListAsync();
+            var categories = _db.Categories.ToList();
 
             return categories;
         }

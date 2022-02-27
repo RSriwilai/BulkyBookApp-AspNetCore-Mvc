@@ -1,7 +1,7 @@
-﻿using BulkyBook.DataAccess.DatabaseModel;
-using BulkyBook.DataAccess.DBContext;
+﻿using BulkyBook.DataAccess.DBContext;
 using BulkyBook.DataAccess.Interfaces;
-using BulkyBook.Models.Product;
+using BulkyBook.Models.DatabaseModel;
+using BulkyBook.Models.Products;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace BulkyBook.DataAccess.Repositories
             _db = db;
         }
 
-        public async Task<Product> CreateCoverType(Product model)
+        public async Task<Product> CreateProduct(Product model)
         {
             await _db.Products.AddAsync(model);
             await _db.SaveChangesAsync();
