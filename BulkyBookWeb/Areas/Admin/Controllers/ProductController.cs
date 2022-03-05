@@ -51,7 +51,7 @@ namespace BulkyBookWeb.Controllers
             }
             else
             {
-                //update product
+                //update produc
             }
 
             return View(productViewModel);
