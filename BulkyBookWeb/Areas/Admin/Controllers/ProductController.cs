@@ -1,7 +1,7 @@
 ﻿using BulkyBook.Models.DatabaseModel;
 using BulkyBook.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using BulkyBook.Models.ViewModels;
+using BulkyBook.Models.Products;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BulkyBookWeb.Controllers
