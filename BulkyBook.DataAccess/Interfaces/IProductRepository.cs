@@ -1,4 +1,5 @@
 ﻿using BulkyBook.Models.DatabaseModel;
+using BulkyBook.Models.Products;
 
 namespace BulkyBook.DataAccess.Interfaces
 {

@@ -1,20 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BulkyBook.Models.DatabaseModel
+namespace BulkyBook.Models.Products
 {
-    public class Product
+    public class ProductDto
     {
-        [Key]
-        public int ProductId { get; set; }
-        
         [Required]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string Title { get; set; }
 
         [Required]
@@ -26,7 +22,7 @@ namespace BulkyBook.Models.DatabaseModel
         public string ISBN { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string Author { get; set; }
 
         [Required]
@@ -34,7 +30,7 @@ namespace BulkyBook.Models.DatabaseModel
         public double ListPrice { get; set; }
 
         [Required]
-        [Range(1, 10000)]
+        [Range(1,10000)]
         public double Price { get; set; }
 
         [Required]
@@ -45,19 +41,7 @@ namespace BulkyBook.Models.DatabaseModel
         [Range(1, 10000)]
         public double Price100 { get; set; }
 
-        [ValidateNever]
         public string ImageUrl { get; set; }
 
-
-        //foreign key relations
-        [Required]
-        public int CategoryId { get; set; }
-        [ValidateNever]
-        public Category Category { get; set; }
-        
-        [Required]
-        public int CoverTypeId { get; set; }
-        [ValidateNever]
-        public CoverType CoverType { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace BulkyBook.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BulkyBook.DataAccess.DatabaseModel.Category", b =>
+            modelBuilder.Entity("BulkyBook.Models.DatabaseModel.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace BulkyBook.DataAccess.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("BulkyBook.DataAccess.DatabaseModel.CoverType", b =>
+            modelBuilder.Entity("BulkyBook.Models.DatabaseModel.CoverType", b =>
                 {
                     b.Property<int>("CoverTypeId")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,7 @@ namespace BulkyBook.DataAccess.Migrations
                     b.ToTable("CoverTypes");
                 });
 
-            modelBuilder.Entity("BulkyBook.DataAccess.DatabaseModel.Product", b =>
+            modelBuilder.Entity("BulkyBook.Models.DatabaseModel.Product", b =>
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
@@ -74,8 +74,8 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.Property<string>("Author")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -99,11 +99,6 @@ namespace BulkyBook.DataAccess.Migrations
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -112,6 +107,11 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.Property<double>("Price50")
                         .HasColumnType("float");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ProductId");
 
@@ -122,15 +122,15 @@ namespace BulkyBook.DataAccess.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("BulkyBook.DataAccess.DatabaseModel.Product", b =>
+            modelBuilder.Entity("BulkyBook.Models.DatabaseModel.Product", b =>
                 {
-                    b.HasOne("BulkyBook.DataAccess.DatabaseModel.Category", "Category")
+                    b.HasOne("BulkyBook.Models.DatabaseModel.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BulkyBook.DataAccess.DatabaseModel.CoverType", "CoverType")
+                    b.HasOne("BulkyBook.Models.DatabaseModel.CoverType", "CoverType")
                         .WithMany()
                         .HasForeignKey("CoverTypeId")
                         .OnDelete(DeleteBehavior.Cascade)

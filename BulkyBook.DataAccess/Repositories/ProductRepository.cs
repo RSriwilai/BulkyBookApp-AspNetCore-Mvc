@@ -31,11 +31,12 @@ namespace BulkyBook.DataAccess.Repositories
         {
             var product = await _db.Products.FindAsync(Id);
             _db.Products.Remove(product);
+            await _db.SaveChangesAsync();
         }
 
         public async Task<List<Product>> GetAll()
         {
-            var products = await _db.Products.ToListAsync();
+            var products = await _db.Products.Include(x => x.Category).ToListAsync();
 
             return products;
         }
