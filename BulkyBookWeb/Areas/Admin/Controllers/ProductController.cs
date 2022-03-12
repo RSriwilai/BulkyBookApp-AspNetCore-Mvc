@@ -27,15 +27,14 @@ namespace BulkyBookWeb.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var objProduct = await _productRepository.GetAll();
 
-            return View(objProduct);
+            return View();
         }
 
         [HttpGet]
-        public IActionResult Upsert(int? id)
+        public async Task<IActionResult> Upsert(int? productId)
         {
             ProductViewModel productViewModel = new ProductViewModel()
             {
@@ -52,17 +51,18 @@ namespace BulkyBookWeb.Controllers
                 }),
             };
 
-            if (id == null || id == 0)
+            if (productId == null || productId == 0)
             {
                 //create product
                 return View(productViewModel);
             }
             else
             {
-                //update product
+                //Update product
+                productViewModel.Product = await _productRepository.GetById(productId);
+                return View(productViewModel);
             }
 
-            return View(productViewModel);
         }
 
         [HttpPost]
@@ -78,13 +78,30 @@ namespace BulkyBookWeb.Controllers
                     var uploads = Path.Combine(wwwRootPath, @"images\products");
                     var extension = Path.GetExtension(file.FileName);
 
+                    if(model.Product.ImageUrl != null)
+                    {
+                        var oldImagesPath = Path.Combine(wwwRootPath, model.Product.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagesPath))
+                        {
+                            System.IO.File.Delete(oldImagesPath);
+                        }
+                    }
+
+
                     using (var fileStream = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
                     model.Product.ImageUrl = @"\images\products\" + fileName + extension;
                 }
-                await _productRepository.CreateProduct(model.Product);
+                if(model.Product.ProductId == 0)
+                {
+                    await _productRepository.CreateProduct(model.Product);
+                }
+                else
+                {
+                    _productRepository.Update(model.Product);
+                }
                 TempData["success"] = "Product created successfully!";
                 return RedirectToAction("Index");
             }
@@ -92,23 +109,38 @@ namespace BulkyBookWeb.Controllers
             return View(model);
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> Delete(int? productId)
+        //{
+        //    if (productId == null || productId == 0)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var product = await _productRepository.GetById(productId);
+
+        //    return View(product);
+        //}
+
+
+        #region API CALLS
         [HttpGet]
-        public async Task<IActionResult> Delete(int? productId)
+        public async Task<IActionResult> GetAll()
         {
-            if (productId == null || productId == 0)
-            {
-                return NotFound();
-            }
+            var products = await _productRepository.GetAll();
 
-            var product = await _productRepository.GetById(productId);
-
-            return View(product);
+            return Json(new { data = products });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteProduct(int productId)
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int productId)
         {
             var product = await _productRepository.GetById(productId);
+            if(product == null)
+            {
+                return Json(new {success = false, message = "Error while deleting"});
+            }
+
             var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, product.ImageUrl.TrimStart('\\'));
             if (System.IO.File.Exists(oldImagePath))
             {
@@ -116,8 +148,9 @@ namespace BulkyBookWeb.Controllers
             }
 
             await _productRepository.Delete(productId);
-            TempData["success"] = "Product deleted successfully!";
-            return RedirectToAction("Index");
+            return Json(new { success = true, message = "Delete Successful" });
         }
+        #endregion
+
     }
 }

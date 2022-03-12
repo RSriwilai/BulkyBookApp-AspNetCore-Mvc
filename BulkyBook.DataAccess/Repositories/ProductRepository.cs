@@ -50,7 +50,7 @@ namespace BulkyBook.DataAccess.Repositories
 
         public void Update(Product model)
         {
-            var obj = _db.Products.FirstOrDefault(u => u.ProductId == model.ProductId);
+            var obj = _db.Products.AsNoTracking().FirstOrDefault(u => u.ProductId == model.ProductId);
             if(obj != null)
             {
                 obj.Title = model.Title;
@@ -68,7 +68,7 @@ namespace BulkyBook.DataAccess.Repositories
                     obj.ImageUrl = model.ImageUrl;
                 }
             }
-            _db.Update(model);
+            _db.Products.Update(model);
             _db.SaveChanges();
         }
     }

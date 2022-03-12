@@ -1,5 +1,4 @@
-﻿@using BulkyBook.Models.DatabaseModel
-@model List<Product>
+﻿
 <br />
 <div class="container p-3">
     <div class="row pt-4">
@@ -11,7 +10,7 @@
         </div>
     </div>
     <br />
-    <table class="table table-bordered table-striped" style="width:100%;">
+    <table  id="tblData"  class="table table-bordered table-striped" style="width:100%;">
         <thead>
             <tr>
                 <th>Title</th>
@@ -22,39 +21,10 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var i in Model)
-            {
-            <tr>
-                <td >
-                    @i.Title
-                </td>
-                <td >
-                    @i.ISBN
-                </td>
-                <td >
-                    @i.Price
-                </td>
-                <td >
-                    @i.Author
-                </td>
-                <td >
-                    @i.Category.Name
-                </td>
-                <td style="text-align:center">
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-primary" style="margin-right:10px;" asp-controller="Product" asp-action="EditProduct" asp-route-productId="@i.ProductId">
-                            <i class="bi bi-pencil-square"></i>
-                            Edit
-                        </a>
-                        <a class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-productId="@i.ProductId">
-                            <i class="bi bi-x-square"></i>
-                            Delete
-                        </a>
-                    </div>
-                </td>
-            </tr>
-            }
-        </tbody>
     </table>
 </div>
+
+@section Scripts{
+
+    <script src="~/js/product.js"></script>
+ }
